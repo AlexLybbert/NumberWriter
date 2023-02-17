@@ -2,26 +2,20 @@
 {
     public class NumberWriter
     {
-        public IEnumerable<string> WriteNumbers(int upperBound)
+        public IEnumerable<string> WriteNumbers(int upperBound, Tuple<int, string> numberWord1, Tuple<int, string> numberWord2)
         {
-            for (var i = 1; i <= upperBound; i++)
+            for (int i = 1; i <= upperBound; i++)
             {
-                if (i % 3 == 0 && i % 5 == 0)
+                string output = string.Empty;
+                if (i % numberWord1?.Item1 == 0)
                 {
-                    yield return "Fizz Buzz";
+                    output += numberWord1?.Item2;
                 }
-                else if (i % 3 == 0)
+                if (i % numberWord2?.Item1 == 0)
                 {
-                    yield return "Fizz";
+                    output += (output == string.Empty ? "" : " ") + numberWord2?.Item2;
                 }
-                else if (i % 5 == 0)
-                {
-                    yield return "Buzz";
-                }
-                else
-                {
-                    yield return i.ToString();
-                }
+                yield return output == string.Empty ? $"{i}" : output;
             }
         }
     }
